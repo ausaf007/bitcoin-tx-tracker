@@ -1,6 +1,6 @@
 import {useState} from 'react';
 
-const TxMonitor = ({onStartMonitoring, onStopMonitoring}) => {
+const TxMonitor = ({onStartMonitoring, onStopMonitoring, isMonitoring}) => {
     const [txId, setTxId] = useState('');
 
     const handleStartMonitoring = () => {
@@ -18,8 +18,8 @@ const TxMonitor = ({onStartMonitoring, onStopMonitoring}) => {
                 placeholder="Enter Bitcoin Transaction ID"
             />
             <br/>
-            <button onClick={handleStartMonitoring}>Monitor</button>
-            <button onClick={onStopMonitoring}>Stop Monitoring</button>
+            <button onClick={handleStartMonitoring} disabled={isMonitoring}>Monitor</button>
+            <button onClick={onStopMonitoring} disabled={!isMonitoring}>Stop Monitoring</button>
         </div>
     );
 }
