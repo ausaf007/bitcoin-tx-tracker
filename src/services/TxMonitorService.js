@@ -1,8 +1,9 @@
 import { initializeWebSocket, closeWebSocket, fetchTransactionDetails, getBlockHeight } from './MempoolService';
-import { saveToFirestore } from './FirestoreService';
+import { pushToFirestore } from './FirestoreService';
 import { txMonitorConfig } from '../configs/config';
 import { calculateSatsPerVbyte, calculateConfirmations, determineStatus } from '../utils/helpers';
-
+import Swal from "sweetalert2";
+import { SUCCESS_NOTIFICATION, ERROR_NOTIFICATION } from '../utils/constants';
 
 let payload = {
     txId: "",
@@ -89,21 +90,33 @@ export const stopTransactionMonitoring = async () => {
     if (payload.lastStatus === "not found") {
         payload.lastStatusAt = new Date();
     }
-    // Save the payload to Firestore
-    await saveToFirestore(payload);
 
-    // Reset the payload for future use
-    resetPayload();
-
-    // Refresh the whole application
-    window.location.reload();
+    await saveDataToFirestore(payload);
 };
 
-const resetPayload = () => {
-    payload = {
-        txId: "",
-        lastStatusAt: null,
-        lastStatus: "not found",
-        satsPerVbyte: 0
-    };
+const saveDataToFirestore = async (payload) => {
+    // Save the payload to Firestore
+    try {
+        const docId = await pushToFirestore(payload);  // Await the promise
+
+        // Show success notification
+        Swal.fire({
+            ...SUCCESS_NOTIFICATION,
+            text: `Transaction data has been saved to Firestore with ID: ${docId}`,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.reload();
+            }
+        });
+    } catch (error) {
+        // Show error notification
+        Swal.fire({
+            ...ERROR_NOTIFICATION,
+            text: 'There was an error saving the transaction data!',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.reload();
+            }
+        });
+    }
 }
