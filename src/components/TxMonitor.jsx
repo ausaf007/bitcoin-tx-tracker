@@ -1,5 +1,6 @@
 import {useState} from 'react';
 
+// eslint-disable-next-line react/prop-types
 const TxMonitor = ({onStartMonitoring, onStopMonitoring, isMonitoring}) => {
     const [txId, setTxId] = useState('');
 
