@@ -24,11 +24,12 @@ This project was scaffolded with [Vite](https://vitejs.dev/).
 [![](https://img.shields.io/badge/Built_with-React-blue?style=for-the-badge&logo=React)](https://react.dev/)
 [![](https://img.shields.io/badge/Built_with-Javascript-yellow?style=for-the-badge&logo=Javascript)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 [![](https://img.shields.io/badge/Built_with-Vitejs-darkblue?style=for-the-badge&logo=Vite)](https://vitejs.dev/)
+[![](https://img.shields.io/badge/Built_with-Firebase-yellow?style=for-the-badge&logo=Firebase)](https://firebase.google.com/)
 
 
 ## Prerequisites
 
-Make sure to have NPM and Node installed.
+Make sure to have NPM and Nodejs installed. Tested on Nodejs `v18.18.0`.
 
 ## How To Use In Dev?
 
